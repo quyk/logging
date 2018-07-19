@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flogging.Core", "Flogging.Core\Flogging.Core.csproj", "{D50288A5-DADF-4884-850A-120A85D3167F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D50288A5-DADF-4884-850A-120A85D3167F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D50288A5-DADF-4884-850A-120A85D3167F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D50288A5-DADF-4884-850A-120A85D3167F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D50288A5-DADF-4884-850A-120A85D3167F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5C81F38-DA1F-4AB4-83AF-E66427A6E599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5C81F38-DA1F-4AB4-83AF-E66427A6E599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5C81F38-DA1F-4AB4-83AF-E66427A6E599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5C81F38-DA1F-4AB4-83AF-E66427A6E599}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E068E3C0-BA30-4988-B40A-55B38AB710C2}
+	EndGlobalSection
+EndGlobal
