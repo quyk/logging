@@ -1,0 +1,19 @@
+version: '3'
+volumes: 
+  dados:
+
+networks: 
+  database:
+
+services:
+  mssql:
+    image: microsoft/mssql-server-linux:2017-CU8
+    container_name: mssql
+    ports:
+      - 1433:1433
+      - 1434:1434
+    networks:
+      - database
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: ''
