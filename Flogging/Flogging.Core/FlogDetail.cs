@@ -22,7 +22,8 @@ namespace Flogging.Core
         // WHO
         public string UserId { get; set; }
         public string UserName { get; set; }
-        public int CustomerName { get; set; }
+        public int CustomerId { get; set; }
+        public string CustomerName { get; set; }
 
         // Everythings else
         public long? ElapsedMillisenconds { get; set; } // only for performace entries
