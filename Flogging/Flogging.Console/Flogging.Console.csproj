@@ -69,6 +69,10 @@
       <Project>{d50288a5-dadf-4884-850a-120a85d3167f}</Project>
       <Name>Flogging.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Flogging.Data\Flogging.Data.csproj">
+      <Project>{CABE75A8-9A8F-4F37-982A-880E84FD7FAB}</Project>
+      <Name>Flogging.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

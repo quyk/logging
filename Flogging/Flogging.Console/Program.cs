@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using Dapper;
 using Flogging.Console.Models;
 using Flogging.Core;
+using Flogging.Data.CustomADO;
+using Flogging.Data.CustomDapper;
 
 namespace Flogging.Console
 {
@@ -36,14 +38,20 @@ namespace Flogging.Console
                 try
                 {
                     // Raw ADO.NET
-                    var rawAdoSp = new SqlCommand("CreateNewCustomer", db)
-                    {
-                        CommandType = CommandType.StoredProcedure
-                    };
-                    rawAdoSp.Parameters.Add(new SqlParameter("@Name", "waytooloongforistowngood"));
-                    rawAdoSp.Parameters.Add(new SqlParameter("@TotalPerchases", 12000));
-                    rawAdoSp.Parameters.Add(new SqlParameter("@TotalReturns", 100.50M));
-                    rawAdoSp.ExecuteNonQuery();
+                    //var rawAdoSp = new SqlCommand("CreateNewCustomer", db)
+                    //{
+                    //    CommandType = CommandType.StoredProcedure
+                    //};
+                    //rawAdoSp.Parameters.Add(new SqlParameter("@Name", "waytooloongforistowngood"));
+                    //rawAdoSp.Parameters.Add(new SqlParameter("@TotalPerchases", 12000));
+                    //rawAdoSp.Parameters.Add(new SqlParameter("@TotalReturns", 100.50M));
+                    //rawAdoSp.ExecuteNonQuery();
+
+                    var sp = new Sproc(db, "CreateNewCustomer");
+                    sp.SetParam("@Name", "waytooloongforistowngood");
+                    sp.SetParam("@TotalPerchases", 12000);
+                    sp.SetParam("@TotalReturns", 100.50M);
+                    sp.ExecNonQuery();
                 }
                 catch (Exception exception)
                 {
@@ -54,12 +62,19 @@ namespace Flogging.Console
                 try
                 {
                     //Dapper
-                    db.Execute("CreateNewCustomer", new
+                    //db.Execute("CreateNewCustomer", new
+                    //{
+                    //    Name = "dappernametooloongforistowngood",
+                    //    TotalPerchases = 12000,
+                    //    TotalReturns = 100.50M
+                    //}, commandType: CommandType.StoredProcedure);
+
+                    db.DapperProcNonQuery("CreateNewCustomer", new
                     {
                         Name = "dappernametooloongforistowngood",
                         TotalPerchases = 12000,
                         TotalReturns = 100.50M
-                    }, commandType: CommandType.StoredProcedure);
+                    });
                 }
                 catch (Exception exception)
                 {
