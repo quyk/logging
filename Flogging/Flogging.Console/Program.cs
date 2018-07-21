@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using Dapper;
+using Flogging.Console.Models;
 using Flogging.Core;
 
 namespace Flogging.Console
@@ -12,16 +17,71 @@ namespace Flogging.Console
 
             var tracker = new PerfTracker("Flogger.Console_Execution", "", fd.UserName, fd.Location, fd.Product, fd.Layer);
 
+            //try
+            //{
+            //    var ex = new Exception("Something bad has happened!");
+            //    ex.Data.Add("input param", "notthing to see hee");
+            //    throw ex;
+            //}
+            //catch (Exception exception)
+            //{
+            //    fd = GetFlogDetail("", exception);
+            //    Flogger.WriteError(fd);
+            //}
+
+            var connStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+            using (var db = new SqlConnection(connStr))
+            {
+                db.Open();
+                try
+                {
+                    // Raw ADO.NET
+                    var rawAdoSp = new SqlCommand("CreateNewCustomer", db)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    rawAdoSp.Parameters.Add(new SqlParameter("@Name", "waytooloongforistowngood"));
+                    rawAdoSp.Parameters.Add(new SqlParameter("@TotalPerchases", 12000));
+                    rawAdoSp.Parameters.Add(new SqlParameter("@TotalReturns", 100.50M));
+                    rawAdoSp.ExecuteNonQuery();
+                }
+                catch (Exception exception)
+                {
+                    var edf = GetFlogDetail("", exception);
+                    Flogger.WriteError(edf);
+                }
+
+                try
+                {
+                    //Dapper
+                    db.Execute("CreateNewCustomer", new
+                    {
+                        Name = "dappernametooloongforistowngood",
+                        TotalPerchases = 12000,
+                        TotalReturns = 100.50M
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception exception)
+                {
+                    var edf = GetFlogDetail("", exception);
+                    Flogger.WriteError(edf);
+                }
+            }
+
+            var ctx = new CustomerDbContext();
             try
             {
-                var ex = new Exception("Something bad has happened!");
-                ex.Data.Add("input param", "notthing to see hee");
-                throw ex;
+                // Entity Framework
+                var name = new SqlParameter("@Name", "eftooloongforistowngood");
+                var totalPerchases = new SqlParameter("@TotalPerchases", 12000);
+                var totalReturns = new SqlParameter("@TotalReturns", 100.50M);
+                ctx.Database.ExecuteSqlCommand("EXEC dbo.CreateNewCustomer @Name, @TotalPerchases, @TotalReturns",
+                    name, totalPerchases, totalReturns);
             }
             catch (Exception exception)
             {
-                fd = GetFlogDetail("", exception);
-                Flogger.WriteError(fd);
+                var edf = GetFlogDetail("", exception);
+                Flogger.WriteError(edf);
             }
 
             fd = GetFlogDetail("used flogging console", null);
